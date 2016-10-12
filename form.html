@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Configure Mug</title>
+		<script src="./js/calculate.js"></script>
+	</head>
+	
+	<body>
+		<form action="http://atlantis.cit.ie/displayvalues.php" method="post" onsubmit="return validate()" onreset="cleanUp()">
+			<fieldset>
+				<legend>Colour</legend>
+				<select id="selectColour" name="colour" onchange="changeColor()" required autofocus>
+					<option value="" selected disabled>Choose...</option>
+					<option value="blue">Blue</option>
+					<option value="green">Green</option>
+					<option value="orange">Orange</option>
+					<option value="red">Red</option>
+					<option value="yellow">Yellow</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Size</legend>
+				<select id="selectSize" name="size" required>
+					<option value="" selected disabled>Choose...</option>
+					<option value="small">Small &euro;9.99</option>
+					<option value="medium">Medium &euro;12.99</option>
+					<option value="large">Large &euro;14.99</option>
+					<option value="xLarge">Extra-Large &euro;15.99</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Upgrades</legend>
+				<select id="selectUpgrade" name="upgrade">
+					<option value="" selected>Choose...</option>
+					<option value="transparent">Transparent base &euro;3</option>
+					<option value="thermos">Thermos &euro;7</option>
+					<option value="logo">Upload your logo &euro;6</option>
+					<option value="initials">Engraved initials &euro;2</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Add-ons</legend>
+				<select id="selectAddons" name="add-on">
+					<option value="" selected>Choose...</option>
+					<option value="hotPlate">Hot plate for you mug &euro;15</option>
+					<option value="lid">Mug lid &euro;3</option>
+					<option value="pullCord">Mug pull-cord &euro;6</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Supplier Options</legend>
+				<select id="selectSupplier" name="supplier">
+					<option value="" selected>Choose...</option>
+					<option value="coffee">1kg coffee &euro;15</option>
+					<option value="milk">Condensed milk &euro;3</option>
+					<option value="tea">1000 tea bags &euro;6</option>
+				</select>
+			</fieldset>
+			<fieldset>
+				<legend>Price</legend>
+				<button type="button" onclick="calculateTotal()">Calculate Total</button>
+				<input type="text" id="displayPrice" value="&euro;0.00" disabled>
+			</fieldset>
+			<fieldset>
+				<legend>Place Order</legend>
+				<input type="submit" value="Order Now">
+				<input type="reset" value="Cancel">
+			</fieldset>
+		</form>
+		
+		<img id="imgMug" src="./images/mug_blank.png" alt="mug" width=225 height=225>
+	</body>
+</html>
