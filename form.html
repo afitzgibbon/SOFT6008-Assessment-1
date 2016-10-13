@@ -2,72 +2,122 @@
 <html>
 	<head>
 		<title>Configure Mug</title>
+		<!-- create links to the external .css and .js files -->
+		<link rel="stylesheet" type="text/css" href="./css/style.css">
 		<script src="./js/calculate.js"></script>
 	</head>
 	
 	<body>
 		<form action="http://atlantis.cit.ie/displayvalues.php" method="post" onsubmit="return validate()" onreset="cleanUp()">
-			<fieldset>
-				<legend>Colour</legend>
-				<select id="selectColour" name="colour" onchange="changeColor()" required autofocus>
-					<option value="" selected disabled>Choose...</option>
-					<option value="blue">Blue</option>
-					<option value="green">Green</option>
-					<option value="orange">Orange</option>
-					<option value="red">Red</option>
-					<option value="yellow">Yellow</option>
-				</select>
-			</fieldset>
-			<fieldset>
-				<legend>Size</legend>
-				<select id="selectSize" name="size" required>
-					<option value="" selected disabled>Choose...</option>
-					<option value="small">Small &euro;9.99</option>
-					<option value="medium">Medium &euro;12.99</option>
-					<option value="large">Large &euro;14.99</option>
-					<option value="xLarge">Extra-Large &euro;15.99</option>
-				</select>
-			</fieldset>
-			<fieldset>
-				<legend>Upgrades</legend>
-				<select id="selectUpgrade" name="upgrade">
-					<option value="" selected>Choose...</option>
-					<option value="transparent">Transparent base &euro;3</option>
-					<option value="thermos">Thermos &euro;7</option>
-					<option value="logo">Upload your logo &euro;6</option>
-					<option value="initials">Engraved initials &euro;2</option>
-				</select>
-			</fieldset>
-			<fieldset>
-				<legend>Add-ons</legend>
-				<select id="selectAddons" name="add-on">
-					<option value="" selected>Choose...</option>
-					<option value="hotPlate">Hot plate for you mug &euro;15</option>
-					<option value="lid">Mug lid &euro;3</option>
-					<option value="pullCord">Mug pull-cord &euro;6</option>
-				</select>
-			</fieldset>
-			<fieldset>
-				<legend>Supplier Options</legend>
-				<select id="selectSupplier" name="supplier">
-					<option value="" selected>Choose...</option>
-					<option value="coffee">1kg coffee &euro;15</option>
-					<option value="milk">Condensed milk &euro;3</option>
-					<option value="tea">1000 tea bags &euro;6</option>
-				</select>
-			</fieldset>
-			<fieldset>
-				<legend>Price</legend>
-				<button type="button" onclick="calculateTotal()">Calculate Total</button>
-				<input type="text" id="displayPrice" value="&euro;0.00" disabled>
-			</fieldset>
-			<fieldset>
-				<legend>Place Order</legend>
-				<input type="submit" value="Order Now">
-				<input type="reset" value="Cancel">
-			</fieldset>
+		<!-- the form will attempt to connect to the 'action' website via the more secure 'post' method, but
+		     before it does that it will first run a validate() function to ensure everything is ok. if this
+		     function returns false then the action is skipped. on the other hand if the user attempts to 
+		     reset the form, a cleanUp() function is first called to do a bit of housekeeping -->
+			<div id="config">
+			<!-- this div groups the form components into three. the first group consists of two mandatory
+			     selections a user must make; the colour and size of the mug. the second group consists of 
+			     optional add-ons that a user may choose to purchase. and the third group consists of a 
+			     caluclate price button and a price display field. note: it is madatory that a user calculates
+			     the price before proceeding with a purchase! -->
+				<fieldset>
+					<legend>Choose a basic mug style</legend>
+					<ul>
+						<li>
+						<!-- the user is presented with five colour tiles which if clicked will make a call to
+						     the changeColor(id) function, and this in turn will change the color of the 
+						     displayed mug based on the id passed in. a hidden input is used to store the 
+						     name-value pair for the mugs colour which is required for submission -->
+							<a id="blueTile" href="#" onclick="changeColor(id)"><img src="./images/tile_blue.png" alt="Color Tile" width=24 height=24></a>
+							<a id="greenTile" href="#" onclick="changeColor(id)"><img src="./images/tile_green.png" alt="Color Tile" width=24 height=24></a>
+							<a id="orangeTile" href="#" onclick="changeColor(id)"><img src="./images/tile_orange.png" alt="Color Tile" width=24 height=24></a>
+							<a id="redTile" href="#" onclick="changeColor(id)"><img src="./images/tile_red.png" alt="Color Tile" width=24 height=24></a>
+							<a id="yellowTile" href="#" onclick="changeColor(id)"><img src="./images/tile_yellow.png" alt="Color Tile" width=24 height=24></a>
+							<input type="hidden" id="selectColor" name="color" value="blank">
+						</li>
+						<li>
+						<!-- the user selects a size for the mug from a drop-down list. this is marked as 
+						     required and therefore the browser will not allow a submission until a value other
+						     than the first option is selected. the first option has been disabled anyway so 
+						     the user is unable to select it -->
+							<select id="selectSize" name="size" required>
+								<option value="" selected disabled>Size</option>
+								<option value="small">Small &euro;9.99</option>
+								<option value="medium">Medium &euro;12.99</option>
+								<option value="large">Large &euro;14.99</option>
+								<option value="xLarge">Extra-Large &euro;15.99</option>
+							</select>
+						</li>
+					</ul>
+				</fieldset>
+			
+				<fieldset>
+					<legend>Optional</legend>
+					<ul>
+					<!-- the optional group consists of three drop-down lists for three separate categories.
+					     these are not marked as required and can therefore be ignored -->
+						<li>
+							<select id="selectUpgrade" name="upgrade">
+								<option value="" selected>Upgrades</option>
+								<option value="transparent">Transparent base &euro;3</option>
+								<option value="thermos">Thermos &euro;7</option>
+								<option value="logo">Upload your logo &euro;6</option>
+								<option value="initials">Engraved initials &euro;2</option>
+							</select>
+						</li>
+						<li>
+							<select id="selectAddons" name="add-on">
+								<option value="" selected>Add-ons</option>
+								<option value="hotPlate">Hot plate for you mug &euro;15</option>
+								<option value="lid">Mug lid &euro;3</option>
+								<option value="pullCord">Mug pull-cord &euro;6</option>
+							</select>
+						</li>
+						<li>
+							<select id="selectSupplier" name="supplier">
+								<option value="" selected>Suplier Options</option>
+								<option value="coffee">1kg coffee &euro;15</option>
+								<option value="milk">Condensed milk &euro;3</option>
+								<option value="tea">1000 tea bags &euro;6</option>
+							</select>
+						</li>
+					</ul>
+				</fieldset>
+			
+				<fieldset>
+					<legend>Price</legend>
+					<ul>
+						<li>
+							<button type="button" onclick="calculateTotal()">Calculate Total</button>
+							<!-- this button makes a call to the calculateTotal() function which will sums
+							     up all the selected options and displays the total in the text field below -->
+						</li>
+						<li>
+							<input type="text" id="displayPrice" value="&euro;0.00" disabled>
+							<!-- this input field has been disabled to ensure that a user cannot alter the 
+						         value within it -->
+						</li>
+					</ul>
+				</fieldset>
+			</div>
+			
+			<div id="actions">
+				<fieldset>
+					<legend>Place Order</legend>
+					<input type="submit" value="Order Now">
+					<input type="reset" value="Cancel">
+				</fieldset>
+			</div>
 		</form>
 		
-		<img id="imgMug" src="./images/mug_blank.png" alt="mug" width=225 height=225>
+		<div id="display">
+			<img id="imgMug" src="./images/mug_blank.png" alt="mug" width=225 height=225>
+			<!-- the image displays a mug that will change colour depending on what colour the user has
+			     selected in the configuration. the default 'blank' mug is a transparent outline of a mug -->
+			<p id="description">
+			<!-- as the user makes selections this can be configured to display a description of what is being
+			     ordered. for now it just displays jibberish -->
+				This is a description of the mug that will change dynamically with each option selected in the configuration. This is a description of the mug that will change dynamically with each option selected in the configuration. This is a description of the mug that will change dynamically with each option selected in the configuration. 
+			</p>
+		</div>
 	</body>
 </html>

@@ -1,0 +1,27 @@
+/* add some background colors to the different div's to distinguish them */ 
+#config {
+	background-color : rgba(255,0,0,0.2);
+}
+
+#actions {
+	background-color : rgba(0,255,0,0.2);
+}
+
+#display {
+	background-color : rgba(0,0,255,0.2);
+}
+
+/* add some border decoration to the color select component */
+a img {
+	border : 1px solid black;
+}
+
+a:hover img {
+	border : 1px solid white;
+}
+
+/* remove the list decoration and padding */
+ul {
+	list-style : none;
+	padding : 0;
+}
